@@ -1,0 +1,10 @@
+[
+  {
+    "plantId": "malus-pumila",
+    "name": "学习",
+    "description": "好好学习，天天向上",
+    "growZoneNumber": 3,
+    "wateringInterval": 0,
+    "imageUrl": "https://picsum.photos/200/300"
+  }
+]

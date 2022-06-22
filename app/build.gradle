@@ -1,0 +1,82 @@
+apply plugin: 'com.android.application'
+
+// https://www.jianshu.com/p/3cdb17cab516(同学们如果不会，就需要看这个文章)
+// https://blog.csdn.net/myc185/article/details/108818419
+// https://www.freesion.com/article/91201351508/
+// 此外，要生成适用于 Kotlin 独有的模块的 Kotlin 代码，请添加以下行：(当初加入这一行代码 就是为了支持Kotlin)
+// apply plugin: "androidx.navigation.safeargs.kotlin"
+// 插件传递参数 https://blog.csdn.net/nanquan11/article/details/109807501
+apply plugin: "androidx.navigation.safeargs"
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+
+    // 开启打开Open DataBinding组件库
+    dataBinding {
+        enabled = true
+    }
+
+    defaultConfig {
+        applicationId "com.google.samples.apps.sunflower"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        versionCode 1
+        versionName "0.1.6"
+        vectorDrawables.useSupportLibrary true
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    buildFeatures {
+        viewBinding true
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+
+    annotationProcessor "androidx.room:room-compiler:$rootProject.roomVersion"
+    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycleVersion"
+
+    implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
+    implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintLayoutVersion"
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$rootProject.lifecycleVersion"
+    implementation "androidx.navigation:navigation-fragment:$rootProject.navigationVersion"
+    implementation "androidx.navigation:navigation-ui:$rootProject.navigationVersion"
+    implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
+    implementation "androidx.room:room-runtime:$rootProject.roomVersion"
+    implementation "androidx.work:work-runtime:$rootProject.workVersion"
+    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+    implementation "com.google.guava:guava:$rootProject.guavaVersion"
+    implementation "com.google.android.material:material:$rootProject.materialVersion"
+    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
+
+    // Testing dependencies
+    androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$rootProject.espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-intents:$rootProject.espressoVersion"
+    androidTestImplementation "androidx.work:work-testing:$rootProject.workVersion"
+    androidTestImplementation "com.google.truth:truth:$rootProject.truthVersion"
+    androidTestImplementation "androidx.test.uiautomator:uiautomator:$rootProject.uiAutomatorVersion"
+    androidTestImplementation "androidx.test.ext:junit:$rootProject.testExtJunit"
+    testImplementation "junit:junit:$rootProject.junitVersion"
+
+    // 2.4 最新的好像
+    // TODO 同学们，这里就是导入WorkManager的依赖支持，因为WorkManager是以扩展库的方式
+    def work_version = "2.3.4"
+    implementation "androidx.work:work-runtime:$work_version"
+}
