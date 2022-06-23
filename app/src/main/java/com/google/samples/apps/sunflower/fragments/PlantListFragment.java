@@ -54,30 +54,23 @@ public class PlantListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        // 所有的布局文件都交给了 DataBinding  来初始化布局文件
         // DataBinding绑定布局的操作
         FragmentPlantListBinding binding = FragmentPlantListBinding.inflate(inflater, container, false);
 
-        // 暴漏 植物 列表 ViewModel 工厂 (数据初始化的起点)      // 开启WM任务 insert room数据库
         PlantListViewModelFactory factory = InjectorUtils.providePlantListViewModelFactory(getContext());
+
+        viewModel = ViewModelProviders.of(this, factory).get(PlantListViewModel.class);
 
         // 适配器初始化
         ListAdapter adapter = new PlantAdapter();
 
-        // 列表控件 和  适配器 关联
         binding.plantList.setAdapter(adapter);
-
-        this.viewModel = ViewModelProviders.of(this, factory).get(PlantListViewModel.class);
-
-        // 到这里为止： // ViewModel 有值
 
         subscribeUi(adapter);
 
-        // 菜单
         // 植物目录：点击右上角 会重新随机查询展示
         setHasOptionsMenu(true);
 
-        // 返回binding的root是View类型，为什么返回它（由于把整个布局交给了DataBinding进行管理，所以getRoot是获取DataBinding管理的根节点）
         return binding.getRoot();
     }
 
@@ -108,29 +101,15 @@ public class PlantListFragment extends Fragment {
         }
     }
 
-    /**
-     * 画面真正的展示渲染 细节操作
-     * @param adapter 上面丢下来的 适配器
-     */
+
     private void subscribeUi(ListAdapter adapter) {
 
-        // 使用LiveData的粘性 执行 把数据全部刷新到 RecyclerView 中去显示出来
-        // 眼睛(第二双眼睛)
         this.viewModel.plants.observe(getViewLifecycleOwner(), new Observer<List<Plant>>() {
             @Override
             public void onChanged(List<Plant> plants) {
-                adapter.submitList(plants); // RecyclerView 中去显示出来
+                adapter.submitList(plants);
             }
         });
     }
 
-    // 灵活多变的，没有固定一说
-    /*public class Click {
-
-        // 对话框
-        public void show() {
-            Toast.makeText(PlantListFragment.this.requireContext(), "Derry", Toast.LENGTH_SHORT).show();
-        }
-
-    }*/
 }

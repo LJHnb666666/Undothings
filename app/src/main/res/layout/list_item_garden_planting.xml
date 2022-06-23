@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-   RecyclerView 的 item 布局文件
-   所有的布局文件 都要交给 DataBinding进行管理
-
-   ViewModel是怎么初始化
-
- -->
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">

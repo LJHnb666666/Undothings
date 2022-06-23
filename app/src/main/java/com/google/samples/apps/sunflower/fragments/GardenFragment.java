@@ -28,7 +28,6 @@ public class GardenFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         // 使用 DataBinding的布局文件
         FragmentGardenBinding binding = FragmentGardenBinding.inflate(inflater, container, false);
 
@@ -45,49 +44,17 @@ public class GardenFragment extends Fragment {
         return binding.getRoot();
     }
 
-    /**
-     * 画面真正的展示渲染 细节操作
-     *
-     * @param adapter 上面丢下来的 适配器
-     * @param binding 上面丢下来的 布局==DataBinding
-     */
     private void subScribeUi(@NonNull GardenPlantingAdapter adapter, @NonNull FragmentGardenBinding binding) {
-
-        // 数据暴漏层，仓库
-        // VM工厂
-        // VM
-        // 仓库
-
-        /**
-         * 【我的花园 List 列表的 ViewModel】的工厂，就是为了创建出 GardenPlantingListViewModel
-         * 而下面的代码，就是为了，【我的花园 List 列表的 ViewModel】 的工厂   的 初始化工作而已哦
-         */
         GardenPlantingListViewModelFactory factory =
                 InjectorUtils.provideGardenPlantingListViewModelFactory(requireContext());
 
-        // 初始化 （我的花园 List 列表的 ViewModel） 同学们注意：当执行到这里时，ViewModel就已经拥有数据了
         GardenPlantingListViewModel viewModel =
                 ViewModelProviders.of(this, factory).get(GardenPlantingListViewModel.class);
 
-        // 此时 VM 有值了
-
-        /**
-         *  当 观察到 （我的花园 List 列表的 ViewModel）  的
-         *             gardenPlantings列表数据是空的 （就展示文本说没有数据） <-- 否则 -->（展示数据）  【的一个标记而已】
-         */
         viewModel.gardenPlantings.observe(getViewLifecycleOwner(), gardenPlantings ->
                 binding.setHasPlantings(gardenPlantings != null && !gardenPlantings.isEmpty()));
+                //Log.v("ljh","GardenFragment里面，gardenPlantings" + gardenPlantings));
 
-        /**
-         *  当 观察到 （我的花园+植物 List 列表的 ViewModel）  的
-         *             gardenPlantings列表数据是OK的，就刷新适配器展示列表数据到RecycleView上面去显示，所以就展示了列表数据了
-         */
-        // 把数据 刷新到 RecyleView 中去
-        /*viewModel.plantAndGardenPlantings.observe(getViewLifecycleOwner(), plantAndGardenPlantings -> {
-            if (plantAndGardenPlantings != null && !plantAndGardenPlantings.isEmpty()) {
-                adapter.submitList(plantAndGardenPlantings);
-            }
-        });*/
         viewModel.plantAndGardenPlantings.observe(getViewLifecycleOwner(), new Observer<List<PlantAndGardenPlantings>>() {
             @Override
             public void onChanged(List<PlantAndGardenPlantings> plantAndGardenPlantings) {

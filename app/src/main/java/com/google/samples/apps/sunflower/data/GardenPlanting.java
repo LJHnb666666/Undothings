@@ -1,6 +1,5 @@
 package com.google.samples.apps.sunflower.data;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -70,11 +69,19 @@ public final class GardenPlanting {
         this.gardenPlantingId = gardenPlantingId;
     }
 
-    @NonNull
+//    @NonNull
+//    @Override
+//    public String toString() {
+//        return String.format("GardenPlanting(plantId=%s, plantDate=%s, lastWateringDate=%s)",
+//                plantId, plantDate.toString(), lastWateringDate.toString());
+//    }
+
+
     @Override
     public String toString() {
-        return String.format("GardenPlanting(plantId=%s, plantDate=%s, lastWateringDate=%s)",
-                plantId, plantDate.toString(), lastWateringDate.toString());
+        return "GardenPlanting{" +
+                "plantId='" + plantId + '\'' +
+                '}';
     }
 
     /**

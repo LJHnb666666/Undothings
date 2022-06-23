@@ -1,6 +1,7 @@
 package com.google.samples.apps.sunflower.adapters;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,18 +37,10 @@ public class GardenPlantingAdapter extends ListAdapter<PlantAndGardenPlantings, 
     public void onBindViewHolder(@NonNull GardenPlantingAdapter.ViewHolder holder, int position) {
         PlantAndGardenPlantings plantings = getItem(position);
         holder.itemView.setTag(plantings);
-
         holder.bind(createOnClickListener(plantings.getPlant().getPlantId()), plantings);
     }
 
     private View.OnClickListener createOnClickListener(String plantId) {
-        /*return new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.e("item", "onClick: 你点击了我的花园列表的Item，plantId:" + plantId);
-            }
-        };*/
-
         // 跳转到详情 并且把植物 id 给详情
         return new View.OnClickListener() {
             @Override
@@ -69,13 +62,13 @@ public class GardenPlantingAdapter extends ListAdapter<PlantAndGardenPlantings, 
         }
 
         void bind(View.OnClickListener listener, PlantAndGardenPlantings plantings) {
-            this.binding.setViewModel(new PlantAndGardenPlantingsViewModel(plantings)); // TODO 这句话是上节课没有的(显示OK)
-            this.binding.setClick(listener);  // 直接和 布局里面的 click 绑定了 关联起来
-            this.binding.executePendingBindings();
+            Log.v("ljh","bind: plantings :" + plantings);
+            this.binding.setViewModel(new PlantAndGardenPlantingsViewModel(plantings));
+            this.binding.setClick(listener);
+            this.binding.executePendingBindings();//当变量或可观察对象发生更改时，绑定会在下一帧之前更改。 不过有的时候需要立刻执行绑定.若要强制执行，可以使用 executePendingBindings() 方法。
         }
     }
 
-    // 同学们：这就是一个比较数据而已，新Item 与 旧Item 的比较...
     static class GardenPlantDiffCallback extends DiffUtil.ItemCallback<PlantAndGardenPlantings> {
 
         @Override

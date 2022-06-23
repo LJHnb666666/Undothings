@@ -1,5 +1,7 @@
 package com.google.samples.apps.sunflower.viewmodels;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
@@ -30,6 +32,9 @@ public class GardenPlantingListViewModel extends ViewModel {
     public GardenPlantingListViewModel(@NonNull GardenPlantingRepository repository) { // VM 就有 仓库了
         // Room的dao-->查询 我的花园 数据
         this.gardenPlantings = repository.getGardenPlantings();
+        Log.v("ljh","GardenPlantingListViewModel中，gardenPlantings为"+ repository.getGardenPlantings().getValue());
+        Log.v("ljh","GardenPlantingListViewModel中，plantAndGardenPlantings为"+ repository.getPlantAndGardenPlantings().getValue());
+
 
         // Room的dao--->查询 我的花园+植物 两者合并的数据
         this.plantAndGardenPlantings = Transformations.map(repository.getPlantAndGardenPlantings(), items -> {
@@ -37,7 +42,8 @@ public class GardenPlantingListViewModel extends ViewModel {
             // 优化用的
             // 如果数据是空的，就移除掉空的数据
             List<PlantAndGardenPlantings> removeItems = new ArrayList<>();
-            for (PlantAndGardenPlantings item:items) {
+            for (PlantAndGardenPlantings item: items) {
+                Log.v("ljh","GardenPlantingListViewModel中，item为"+ item);
                 if (item.getGardenPlantings().isEmpty()) {
                     removeItems.add(item);
                 }

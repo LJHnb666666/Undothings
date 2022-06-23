@@ -36,4 +36,12 @@ public class PlantAndGardenPlantings {
     public void setGardenPlantings(List<GardenPlanting> gardenPlantings) {
         this.gardenPlantings = gardenPlantings;
     }
+
+    @Override
+    public String toString() {
+        return "PlantAndGardenPlantings{" +
+                "plant=" + plant +
+                ", gardenPlantings=" + gardenPlantings +
+                '}';
+    }
 }

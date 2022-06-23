@@ -15,9 +15,6 @@ import com.google.samples.apps.sunflower.data.Plant;
 import com.google.samples.apps.sunflower.databinding.ListItemPlantBinding;
 import com.google.samples.apps.sunflower.fragments.PlantListFragmentDirections;
 
-/**
- * 植物目录 的 适配器
- */
 public class PlantAdapter extends ListAdapter<Plant, PlantAdapter.ViewHolder> {
 
     public PlantAdapter() {
@@ -39,8 +36,6 @@ public class PlantAdapter extends ListAdapter<Plant, PlantAdapter.ViewHolder> {
     }
 
     private View.OnClickListener createOnClickListener(String plantId) {
-        // return v -> Log.e("item", "onClick: 你点击了植物列表的Item，plantId:" + plantId);
-
         // 导航过去了 到 详情
         return v -> Navigation.findNavController(v).navigate(
                 PlantListFragmentDirections.actionPlantListFragmentToPlantDetailFragment(plantId)
@@ -56,9 +51,8 @@ public class PlantAdapter extends ListAdapter<Plant, PlantAdapter.ViewHolder> {
         }
 
         void bind(View.OnClickListener listener, Plant item) {
-            binding.setPlant(item); // 生成出来的，建立关联  ===  new Plant(行参1,行参2,行参3,xxx)
-            //  binding.setXxx(item);
-            binding.setClick(listener); // 直接和 布局里面的 click 绑定了 关联起来
+            binding.setPlant(item);
+            binding.setClick(listener);
             binding.executePendingBindings();
         }
     }
