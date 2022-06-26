@@ -17,15 +17,15 @@
 <resources>
     <string name="menu_filter_by_grow_zone">按生長區篩選</string>
     <string name="plant_detail_image_content_description">植物圖片</string>
-    <string name="my_garden_title">我的花園</string>
-    <string name="plant_list_title">植物目錄</string>
-    <string name="plant_details_title">植物介紹</string>
+    <string name="my_undo_title">我的花園</string>
+    <string name="undo_list_title">植物目錄</string>
+    <string name="undo_details_title">植物介紹</string>
     <string name="navigation_drawer_header_content_description">導航抽屜頁眉</string>
-    <string name="added_plant_to_garden">添加了新植物</string>
-    <string name="garden_empty">花園裡還沒有植物</string>
-    <string name="planted_date">%1$s 種植於 %2$s</string>
-    <string name="menu_item_share_plant">分享</string>
-    <string name="share_text_plant">在安卓 Sunflower APP 上看看這 %s</string>
+    <string name="added_undo_to_garden">添加了新植物</string>
+    <string name="undo_empty">花園裡還沒有植物</string>
+    <string name="undo_date">%1$s 種植於 %2$s</string>
+    <string name="menu_item_share_undo">分享</string>
+    <string name="share_text_undo">在安卓 Sunflower APP 上看看這 %s</string>
 
     <!-- String plurals and their related prefix / suffix strings -->
     <!-- Item quantities for zero and one are not used in Chinese -->

@@ -24,6 +24,8 @@ import java.util.Calendar;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
+import com.google.samples.apps.sunflower.bean.MyUndoListBean;
+
 /**
  * Created by Shawn Wang on 4/1/19.
  */
@@ -31,11 +33,11 @@ public class GardenPlantingTest {
 
     @Test
     public void testDefaultValues() {
-        GardenPlanting gardenPlanting = new GardenPlanting("1", null, null);
+        MyUndoListBean gardenPlanting = new MyUndoListBean("1", null, null);
         Calendar cal = Calendar.getInstance();
-        assertYMD(cal, gardenPlanting.getPlantDate());
-        assertYMD(cal, gardenPlanting.getLastWateringDate());
-        assertEquals(0L, gardenPlanting.getGardenPlantingId());
+        assertYMD(cal, gardenPlanting.getUndoDate());
+        assertYMD(cal, gardenPlanting.getLastDoDate());
+        assertEquals(0L, gardenPlanting.getMyUndoListId());
     }
 
     // Only Year/Month/Day precision is needed for comparing GardenPlanting Calendar entries

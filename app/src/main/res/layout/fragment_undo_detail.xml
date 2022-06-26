@@ -1,26 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<!--
-  Fragment 植物介绍详情 的 布局文件
-  -->
-
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <!-- 植物介绍详情 需要的 ViewModel -->
         <variable
             name="viewModel"
-            type="com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModel" />
+            type="com.google.samples.apps.sunflower.viewmodels.UndoDetailViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context="com.google.samples.apps.sunflower.GardenActivity"
+        tools:context="com.google.samples.apps.sunflower.UndoActivity"
         tools:ignore="MergeRootFrame">
 
         <!-- 先理解是图片区域 -->
@@ -38,10 +32,10 @@
                 android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimary"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:title="@{viewModel.plant.name}"
+                app:title="@{viewModel.undo.name}"
                 app:toolbarId="@+id/toolbar">
 
-                <!-- 植物图片 -->
+                <!-- 待办图片 -->
                 <ImageView
                     android:id="@+id/detail_image"
                     android:layout_width="match_parent"
@@ -49,7 +43,7 @@
                     android:contentDescription="@string/plant_detail_image_content_description"
                     android:fitsSystemWindows="true"
                     android:scaleType="centerCrop"
-                    app:imageFromUrl="@{viewModel.plant.imageUrl}"
+                    app:imageFromUrl="@{viewModel.undo.imageUrl}"
                     app:layout_collapseMode="parallax" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -69,24 +63,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <!-- 植物的名称，例如：Sunflower，Tomato，... -->
                 <TextView
-                    android:id="@+id/plant_name"
+                    android:id="@+id/undo_name"
                     style="?android:attr/textAppearanceLarge"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
                     android:layout_marginTop="@dimen/margin_normal"
                     android:layout_marginEnd="@dimen/margin_small"
-                    android:text="@{viewModel.plant.name}"
+                    android:text="@{viewModel.undo.name}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Sunflower" />
 
-                <!-- 植物应该多久浇水一次，以天为单位 -->
                 <TextView
-                    android:id="@+id/plant_watering"
+                    android:id="@+id/undo_interval"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_small"
@@ -94,13 +86,13 @@
                     android:layout_marginEnd="@dimen/margin_small"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/plant_name"
-                    app:wateringText="@{viewModel.plant.wateringInterval}"
+                    app:layout_constraintTop_toBottomOf="@+id/undo_name"
+                    app:wateringText="@{viewModel.undo.interval}"
                     tools:text="Watering needs: every 7 days" />
 
                 <!-- 描述详情，很长很长的文字信息 -->
                 <TextView
-                    android:id="@+id/plant_description"
+                    android:id="@+id/undo_description"
                     style="?android:attr/textAppearanceMedium"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -110,19 +102,15 @@
                     android:textIsSelectable="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/plant_watering"
-                    app:renderHtml="@{viewModel.plant.description}"
+                    app:layout_constraintTop_toBottomOf="@+id/undo_interval"
+                    app:renderHtml="@{viewModel.undo.description}"
                     tools:text="Details about the plant" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
 
-        <!-- 点击 + 本次植物 insert 我的花园 表里面去 -->
-        <!-- 在植物介绍详情页  用户点击 + 号的时候， 加入到 我的花园GardenPlantings Room数据库里面去 -->
-        <!--
-           https://blog.csdn.net/jameskaron/article/details/84916589（当使用databinding，在layout.xml中使用类型转换，会出现warning，使用safeUnbox()即可：）
-        -->
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"
             style="@style/Widget.MaterialComponents.FloatingActionButton"
@@ -131,7 +119,7 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
             android:tint="@android:color/white"
-            app:isGone="@{safeUnbox(viewModel.isPlanted)}"
+            app:isGone="@{safeUnbox(viewModel.isAdd)}"
             app:layout_anchor="@id/plant_detail_scrollview"
             app:layout_anchorGravity="bottom|end"
             app:srcCompat="@drawable/ic_plus" />

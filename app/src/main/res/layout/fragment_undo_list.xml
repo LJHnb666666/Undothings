@@ -11,14 +11,14 @@
 
     <!-- tools:listitem="@layout/list_item_plant"  ==  植物目录 RecyclerView 的 item 布局 -->
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/plant_list"
+            android:id="@+id/undo_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
             android:paddingLeft="@dimen/margin_normal"
             android:paddingRight="@dimen/margin_normal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:context="com.google.samples.apps.sunflower.GardenActivity"
-            tools:listitem="@layout/list_item_plant" />
+            tools:context="com.google.samples.apps.sunflower.UndoActivity"
+            tools:listitem="@layout/list_item_all_undo" />
 
 </layout>

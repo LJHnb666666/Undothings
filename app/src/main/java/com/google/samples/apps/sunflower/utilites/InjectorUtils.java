@@ -1,62 +1,49 @@
 package com.google.samples.apps.sunflower.utilites;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.samples.apps.sunflower.data.AppDatabase;
-import com.google.samples.apps.sunflower.data.GardenPlantingDao;
-import com.google.samples.apps.sunflower.data.GardenPlantingRepository;
-import com.google.samples.apps.sunflower.data.PlantRepository;
-import com.google.samples.apps.sunflower.viewmodels.GardenPlantingListViewModelFactory;
-import com.google.samples.apps.sunflower.viewmodels.PlantDetailViewModelFactory;
-import com.google.samples.apps.sunflower.viewmodels.PlantListViewModelFactory;
+import com.google.samples.apps.sunflower.dao.MyUndoListDao;
+import com.google.samples.apps.sunflower.repository.MyUndoListRepository;
+import com.google.samples.apps.sunflower.repository.UndoRepository;
+import com.google.samples.apps.sunflower.factory.CommonUndoItemViewModelFactory;
+import com.google.samples.apps.sunflower.factory.UndoDetailViewModelFactory;
+import com.google.samples.apps.sunflower.factory.AllUndoListViewModelFactory;
 
-/**
- * TODO 数据获取源
- *
- * Static methods used to inject classes needed for various Activities and Fragments.
- * 用于注入各种活动和片段所需的类的静态方法
- */
+
 public class InjectorUtils {
 
-    // 获取 我的花园 仓库
-    private static GardenPlantingRepository getGardenPlantingRepository(Context context) {
-        // 获取 我的花园 增删改查操作-DAO
-        GardenPlantingDao dao = AppDatabase.getInstance(context.getApplicationContext()).getGardenPlantingDao();
+    private static MyUndoListRepository getMyUndoListRepository(Context context) {
+        Log.v("ljh","InjectorUtils的getMyUndoListRepository");
 
-        // 把 我的花园dao加入进去 并 创建 我的花园 仓库层
-        return GardenPlantingRepository.getInstance(dao);
+        MyUndoListDao dao = AppDatabase.getInstance(context.getApplicationContext()).getMyUndoListDao();
+
+        return MyUndoListRepository.getInstance(dao);
     }
 
 
-    // 暴漏 我的花园 列表 ViewModel 工厂
-    public static GardenPlantingListViewModelFactory provideGardenPlantingListViewModelFactory(Context context) {
+    public static CommonUndoItemViewModelFactory provideCommonUndoItemViewModelFactory(Context context) {
+        Log.v("ljh","InjectorUtils的provideCommonUndoItemViewModelFactory");
+        MyUndoListRepository undoListRepository = getMyUndoListRepository(context);
 
-        // 获取 我的花园 仓库
-        GardenPlantingRepository gardenPlantingRepository = getGardenPlantingRepository(context);
-
-        // 把 我的花园 仓库 传入 并 创建 --> 我的花园 List 列表的 ViewModel】 的工厂
-        return new GardenPlantingListViewModelFactory(gardenPlantingRepository);
+        return new CommonUndoItemViewModelFactory(undoListRepository);
     }
 
-    // 获取 植物 仓库
-    private static PlantRepository getPlantRepository(Context context) {
-        // AppDatabase.getInstance == (数据初始化的起点) 开始执行了，往 plant表里面插入数据
-        return PlantRepository.getInstance(AppDatabase.getInstance(context.getApplicationContext()).getPlantDao());
+    private static UndoRepository getUndoRepository(Context context) {
+        return UndoRepository.getInstance(AppDatabase.getInstance(context.getApplicationContext()).getUndoDao());
     }
 
-    // 暴漏 植物列表ViewModel  的  工厂
-    public static PlantListViewModelFactory providePlantListViewModelFactory(Context context) {
+    public static AllUndoListViewModelFactory provideAllUndoListViewModelFactory(Context context) {
 
-        // 仓库
-        PlantRepository plantRepository = getPlantRepository(context);
+        UndoRepository undoRepository = getUndoRepository(context);
 
-        return new PlantListViewModelFactory(plantRepository);
+        return new AllUndoListViewModelFactory(undoRepository);
     }
 
-    // 暴漏 植物介绍详情 ViewModel 工厂
-    public static PlantDetailViewModelFactory providerPlantDetailViewModelFactory(Context context, String plantId) {
-        PlantRepository plantRepository = getPlantRepository(context);
-        GardenPlantingRepository gardenPlantingRepository = getGardenPlantingRepository(context);
-        return new PlantDetailViewModelFactory(plantRepository, gardenPlantingRepository, plantId);
+    public static UndoDetailViewModelFactory providerUndoDetailViewModelFactory(Context context, String undoId) {
+        UndoRepository undoRepository = getUndoRepository(context);
+        MyUndoListRepository myUndoListRepository = getMyUndoListRepository(context);
+        return new UndoDetailViewModelFactory(undoRepository, myUndoListRepository, undoId);
     }
 }

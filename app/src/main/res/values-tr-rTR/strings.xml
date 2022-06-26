@@ -17,15 +17,15 @@
 <resources>
     <string name="menu_filter_by_grow_zone">Yetişme bölgesine göre filtrele</string>
     <string name="plant_detail_image_content_description">Bitkinin görüntüsü</string>
-    <string name="my_garden_title">Bahçem</string>
-    <string name="plant_list_title">Bitki listesi</string>
-    <string name="plant_details_title">Bitki detayları</string>
+    <string name="my_undo_title">Bahçem</string>
+    <string name="undo_list_title">Bitki listesi</string>
+    <string name="undo_details_title">Bitki detayları</string>
     <string name="navigation_drawer_header_content_description">Navigation drawer başlık logosu</string>
-    <string name="added_plant_to_garden">Bitki bahçeye eklendi</string>
-    <string name="garden_empty">Bahçen boş</string>
-    <string name="planted_date">%1$s %2$s tarihinde dikildi</string>
-    <string name="menu_item_share_plant">Paylaş</string>
-    <string name="share_text_plant">%s bitkisini Android Sunflower uygulamasında inceleyin</string>
+    <string name="added_undo_to_garden">Bitki bahçeye eklendi</string>
+    <string name="undo_empty">Bahçen boş</string>
+    <string name="undo_date">%1$s %2$s tarihinde dikildi</string>
+    <string name="menu_item_share_undo">Paylaş</string>
+    <string name="share_text_undo">%s bitkisini Android Sunflower uygulamasında inceleyin</string>
 
     <!-- String plurals and their related prefix / suffix strings -->
     <string name="watering_needs_prefix">Sulama gereksinimi:</string>

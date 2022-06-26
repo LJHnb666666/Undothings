@@ -10,21 +10,7 @@ import java.util.concurrent.Executors;
 
 
 /**
- * Copied from [android-architecture] project, i changed class to singleton.
- *
- * See: https://github.com/googlesamples/android-architecture/blob/todo-mvp/todoapp/app/src/main/java/com/example/android/architecture/blueprints/todoapp/util/AppExecutors.java
- *
- * Global executor pools for the whole application.
- * <p>
- * Grouping tasks like this avoids the effects of task starvation (e.g. disk reads don't wait behind
- * webservice requests).
-
-
-  TODO 全局线程池任务， 给整个项目 用 网络线程池，磁盘线程池，主线程 都很方便 的使用此类即可
-
-  从[android架构]项目复制过来，我把类改为singleton。
-   整个应用程序的全局执行器池。
-   这样的任务分组可以避免任务饥饿的影响（例如，磁盘读取不会在webservice请求之后等待）。
+ *TODO 全局线程池任务， 给整个项目 用 网络线程池，磁盘线程池，主线程 都很方便 的使用此类即可
  */
 public class AppExecutors {
 

@@ -43,7 +43,7 @@ import static org.junit.Assert.assertFalse;
  */
 public class GardenActivityTest {
     @Rule
-    public ActivityTestRule activityTestRule = new ActivityTestRule<>(GardenActivity.class);
+    public ActivityTestRule activityTestRule = new ActivityTestRule<>(UndoActivity.class);
 
     @Test
     public void clickOnAndroidHomeIcon_OpensAndClosesNavigation() {

@@ -18,6 +18,8 @@ package com.google.samples.apps.sunflower.data;
 
 import android.content.Context;
 
+import com.google.samples.apps.sunflower.bean.UndoBean;
+import com.google.samples.apps.sunflower.dao.UndoDao;
 import com.google.samples.apps.sunflower.utilities.LiveDataTestUtil;
 
 import org.hamcrest.Matchers;
@@ -43,10 +45,10 @@ import static org.junit.Assert.assertThat;
 @RunWith(AndroidJUnit4.class)
 public class PlantDaoTest {
     private AppDatabase database;
-    private PlantDao plantDao;
-    private Plant plantA = new Plant("1", "A", "", 1, 1, "");
-    private Plant plantB = new Plant("2", "B", "", 1, 1, "");
-    private Plant plantC = new Plant("3", "C", "", 2, 2, "");
+    private UndoDao plantDao;
+    private UndoBean plantA = new UndoBean("1", "A", "", 1, 1, "");
+    private UndoBean plantB = new UndoBean("2", "B", "", 1, 1, "");
+    private UndoBean plantC = new UndoBean("3", "C", "", 2, 2, "");
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
@@ -55,7 +57,7 @@ public class PlantDaoTest {
     public void createDb() {
         Context context = InstrumentationRegistry.getInstrumentation().getContext();
         this.database = Room.inMemoryDatabaseBuilder(context, AppDatabase.class).build();
-        this.plantDao = this.database.getPlantDao();
+        this.plantDao = this.database.getUndoDao();
 
         // Insert plants in non-alphabetical order to test that results are sorted by name
         this.plantDao.insertAll(Arrays.asList(plantA, plantB, plantC));
@@ -68,7 +70,7 @@ public class PlantDaoTest {
 
     @Test
     public void testGetPlants() throws InterruptedException {
-        List<Plant> plantList = LiveDataTestUtil.getValue(this.plantDao.getPlants());
+        List<UndoBean> plantList = LiveDataTestUtil.getValue(this.plantDao.getAllUndos());
 
         // Ensure plant list is sorted by name
         assertThat(plantList.get(0), Matchers.equalTo(plantA));
@@ -78,10 +80,10 @@ public class PlantDaoTest {
 
     @Test
     public void testGetPlantsWithGrowZoneNumber() throws InterruptedException {
-        List<Plant> plantList = LiveDataTestUtil.getValue(plantDao.getPlantsWithGrowZoneNumber(1));
+        List<UndoBean> plantList = LiveDataTestUtil.getValue(plantDao.getUndosByGrowzonenumber(1));
         assertThat(plantList.size(), Matchers.equalTo(2));
-        assertThat(LiveDataTestUtil.getValue(plantDao.getPlantsWithGrowZoneNumber(2)).size(), Matchers.equalTo(1));
-        assertThat(LiveDataTestUtil.getValue(plantDao.getPlantsWithGrowZoneNumber(3)).size(), Matchers.equalTo(0));
+        assertThat(LiveDataTestUtil.getValue(plantDao.getUndosByGrowzonenumber(2)).size(), Matchers.equalTo(1));
+        assertThat(LiveDataTestUtil.getValue(plantDao.getUndosByGrowzonenumber(3)).size(), Matchers.equalTo(0));
 
         // Ensure plant list is sorted by name
         assertThat(plantList.get(0), Matchers.equalTo(plantA));
@@ -90,7 +92,7 @@ public class PlantDaoTest {
 
     @Test
     public void testGetPlant() throws InterruptedException {
-        assertThat(LiveDataTestUtil.getValue(plantDao.getPlant(plantA.getPlantId())), Matchers.equalTo(plantA));
+        assertThat(LiveDataTestUtil.getValue(plantDao.getUndoById(plantA.getUndoId())), Matchers.equalTo(plantA));
     }
 
 }

@@ -19,8 +19,8 @@ package com.google.samples.apps.sunflower.utilities;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.google.samples.apps.sunflower.data.GardenPlanting;
-import com.google.samples.apps.sunflower.data.Plant;
+import com.google.samples.apps.sunflower.bean.MyUndoListBean;
+import com.google.samples.apps.sunflower.bean.UndoBean;
 
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
@@ -40,9 +40,9 @@ public class TestUtils {
     /**
      * [Plant] objects used for tests.
      */
-    public static final List<Plant> testPlants;
+    public static final List<UndoBean> testPlants;
 
-    public static final Plant testPlant;
+    public static final UndoBean testPlant;
 
     /**
      * [Calendar] object used for tests.
@@ -52,13 +52,13 @@ public class TestUtils {
     /**
      * [GardenPlanting] object used for tests.
      */
-    public static final GardenPlanting testGardenPlanting;
+    public static final MyUndoListBean testGardenPlanting;
 
     static {
         testPlants = Arrays.asList(
-                new Plant("1", "Apple", "A red fruit", 1, -1, ""),
-                new Plant("2", "B", "Description B", 2, -1, ""),
-                new Plant("3", "C", "Description C", 3, -1, ""));
+                new UndoBean("1", "Apple", "A red fruit", 1, -1, ""),
+                new UndoBean("2", "B", "Description B", 2, -1, ""),
+                new UndoBean("3", "C", "Description C", 3, -1, ""));
 
         testPlant = testPlants.get(0);
 
@@ -66,7 +66,7 @@ public class TestUtils {
         testCalendar.set(Calendar.MONTH, Calendar.SEPTEMBER);
         testCalendar.set(Calendar.DAY_OF_MONTH, 4);
 
-        testGardenPlanting = new GardenPlanting(testPlant.getPlantId(), testCalendar, testCalendar);
+        testGardenPlanting = new MyUndoListBean(testPlant.getUndoId(), testCalendar, testCalendar);
     }
 
     /**

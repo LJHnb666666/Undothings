@@ -26,7 +26,7 @@
 
         <!-- 代表RecycleView item == tools:listitem="@layout/list_item_garden_planting" -->
         <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/garden_list"
+                android:id="@+id/undo_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
@@ -34,15 +34,15 @@
                 android:paddingRight="@dimen/margin_normal"
                 app:isGone="@{!hasPlantings}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/list_item_garden_planting"/>
+                tools:listitem="@layout/list_item_my_undo"/>
 
         <!-- 如果RecyclerView没有数据，就展示此文字 >（花园里还没有植物） -->
         <TextView
-                android:id="@+id/empty_garden"
+                android:id="@+id/empty_undo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@string/garden_empty"
+                android:text="@string/undo_empty"
                 android:textSize="24sp"
                 app:isGone="@{hasPlantings}"/>
 

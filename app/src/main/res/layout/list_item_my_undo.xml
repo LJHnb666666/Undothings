@@ -13,7 +13,7 @@
         <!-- 图片与文本 信息显示的ViewModel -->
         <variable
             name="viewModel"
-            type="com.google.samples.apps.sunflower.viewmodels.PlantAndGardenPlantingsViewModel"/>
+            type="com.google.samples.apps.sunflower.viewmodels.CommonUndoItemViewModel"/>
 
     </data>
 
@@ -22,7 +22,6 @@
         android:layout_height="wrap_content"
         android:onClick="@{click}">
 
-        <!-- item 的图片显示 -->
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
@@ -40,7 +39,6 @@
             app:layout_constraintVertical_bias="0.0"
             />
 
-        <!-- item 的图片显示 下面的基本信息 -->
         <TextView
             android:id="@+id/plant_date"
             android:layout_width="0dp"
@@ -48,12 +46,11 @@
             android:layout_marginEnd="@dimen/margin_small"
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginTop="@dimen/margin_normal"
-            android:text="@{@string/planted_date(viewModel.plantName, viewModel.plantDateString)}"
+            android:text="@{@string/undo_date(viewModel.undoName, viewModel.lastDoDate)}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageView"/>
 
-        <!-- item 的图片显示 下面的 （上次浇水 xxxxxxxx） -->
         <TextView
             android:id="@+id/water_date"
             android:layout_width="0dp"
@@ -62,7 +59,7 @@
             android:layout_marginStart="@dimen/margin_small"
             android:layout_marginTop="@dimen/margin_small"
             android:layout_marginBottom="@dimen/margin_normal"
-            android:text="@{@string/water_date(@string/watering_next_prefix(viewModel.waterDateString), @plurals/watering_next_suffix(viewModel.wateringInterval, viewModel.wateringInterval))}"
+            android:text="@{@string/water_date(@string/watering_next_prefix(viewModel.waterDateString), @plurals/watering_next_suffix(viewModel.interval, viewModel.interval))}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/plant_date"/>

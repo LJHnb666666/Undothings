@@ -48,14 +48,14 @@ import static org.hamcrest.Matchers.allOf;
 @RunWith(AndroidJUnit4.class)
 public class PlantDetailFragmentTest {
     @Rule
-    public ActivityTestRule activityTestRule = new ActivityTestRule<>(GardenActivity.class);
+    public ActivityTestRule activityTestRule = new ActivityTestRule<>(UndoActivity.class);
 
     @Before
     public void jumpToPlantDetailFragment() {
         Activity act = this.activityTestRule.getActivity();
         act.runOnUiThread(() -> {
             Bundle bundle = new Bundle();
-            bundle.putString("plantId", testPlant.getPlantId());
+            bundle.putString("plantId", testPlant.getUndoId());
             Navigation.findNavController(act, R.id.garden_nav_fragment).navigate(R.id.plant_detail_fragment, bundle);
         });
     }

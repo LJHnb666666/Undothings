@@ -17,15 +17,15 @@
 <resources>
     <string name="menu_filter_by_grow_zone">Nach Wachstumszone filtern</string>
     <string name="plant_detail_image_content_description">Bild der Pflanze</string>
-    <string name="my_garden_title">Mein Garten</string>
-    <string name="plant_list_title">Pflanzenliste</string>
-    <string name="plant_details_title">Details zur Pflanze</string>
+    <string name="my_undo_title">Mein Garten</string>
+    <string name="undo_list_title">Pflanzenliste</string>
+    <string name="undo_details_title">Details zur Pflanze</string>
     <string name="navigation_drawer_header_content_description">App Navigation</string>
-    <string name="added_plant_to_garden">Pflanze wurde zum Garten hinzugefügt</string>
-    <string name="garden_empty">Ihr Garten ist unbepflanzt</string>
-    <string name="planted_date">%1$s gepflanzt in %2$s</string>
-    <string name="menu_item_share_plant">Teilen</string>
-    <string name="share_text_plant">Schau dir die %s Pflanze in der App "Sunflower" an</string>
+    <string name="added_undo_to_garden">Pflanze wurde zum Garten hinzugefügt</string>
+    <string name="undo_empty">Ihr Garten ist unbepflanzt</string>
+    <string name="undo_date">%1$s gepflanzt in %2$s</string>
+    <string name="menu_item_share_undo">Teilen</string>
+    <string name="share_text_undo">Schau dir die %s Pflanze in der App "Sunflower" an</string>
 
     <!-- String plurals and their related prefix / suffix strings -->
     <string name="watering_needs_prefix">Wasserbedarf:</string>

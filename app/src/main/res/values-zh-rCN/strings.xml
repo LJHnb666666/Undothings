@@ -17,15 +17,15 @@
 <resources>
     <string name="menu_filter_by_grow_zone">按生长区筛选</string>
     <string name="plant_detail_image_content_description">植物图片</string>
-    <string name="my_garden_title">我的待办</string>
-    <string name="plant_list_title">待办目录</string>
-    <string name="plant_details_title">待办事项介绍</string>
+    <string name="my_undo_title">我的待办</string>
+    <string name="undo_list_title">待办目录</string>
+    <string name="undo_details_title">待办事项介绍</string>
     <string name="navigation_drawer_header_content_description">导航抽屉页眉</string>
-    <string name="added_plant_to_garden">添加了新的待办</string>
-    <string name="garden_empty">还没有待办事项</string>
-    <string name="planted_date">%1$s 添加于于 %2$s</string>
-    <string name="menu_item_share_plant">分享</string>
-    <string name="share_text_plant">在安卓 我的待办 APP 上看看这 %s</string>
+    <string name="added_undo_to_garden">添加了新的待办</string>
+    <string name="undo_empty">还没有待办事项</string>
+    <string name="undo_date">%1$s 添加于于 %2$s</string>
+    <string name="menu_item_share_undo">分享</string>
+    <string name="share_text_undo">在安卓 我的待办 APP 上看看这 %s</string>
 
     <!-- String plurals and their related prefix / suffix strings -->
     <!-- Item quantities for zero and one are not used in Chinese -->

@@ -18,6 +18,9 @@ package com.google.samples.apps.sunflower.data;
 
 import android.content.Context;
 
+import com.google.samples.apps.sunflower.bean.CommonUndoBean;
+import com.google.samples.apps.sunflower.bean.MyUndoListBean;
+import com.google.samples.apps.sunflower.dao.MyUndoListDao;
 import com.google.samples.apps.sunflower.utilities.LiveDataTestUtil;
 
 import org.hamcrest.Matchers;
@@ -47,7 +50,7 @@ import static org.junit.Assert.assertNull;
 @RunWith(AndroidJUnit4.class)
 public class GardenPlantingDaoTest {
     private AppDatabase database;
-    private GardenPlantingDao gardenPlantingDao;
+    private MyUndoListDao gardenPlantingDao;
     private long testGardenPlantingId = 0;
 
     @Rule
@@ -57,10 +60,10 @@ public class GardenPlantingDaoTest {
     public void createDb() {
         Context context = InstrumentationRegistry.getInstrumentation().getContext();
         this.database = Room.inMemoryDatabaseBuilder(context, AppDatabase.class).build();
-        this.gardenPlantingDao = database.getGardenPlantingDao();
+        this.gardenPlantingDao = database.getMyUndoListDao();
 
-        this.database.getPlantDao().insertAll(testPlants);
-        this.testGardenPlantingId = this.gardenPlantingDao.insertGardenPlanting(testGardenPlanting);
+        this.database.getUndoDao().insertAll(testPlants);
+        this.testGardenPlantingId = this.gardenPlantingDao.insertOneMyUndo(testGardenPlanting);
     }
 
     @After
@@ -70,10 +73,10 @@ public class GardenPlantingDaoTest {
 
     @Test
     public void testGetGardenPlantings() throws InterruptedException {
-        GardenPlanting gardenPlanting2 = new GardenPlanting(testPlants.get(1).getPlantId(), testCalendar, testCalendar);
-        gardenPlanting2.setGardenPlantingId(2);
-        this.gardenPlantingDao.insertGardenPlanting(gardenPlanting2);
-        assertThat(LiveDataTestUtil.getValue(this.gardenPlantingDao.getGardenPlantings()).size(), Matchers.equalTo(2));
+        MyUndoListBean gardenPlanting2 = new MyUndoListBean(testPlants.get(1).getUndoId(), testCalendar, testCalendar);
+        gardenPlanting2.setMyUndoListId(2);
+        this.gardenPlantingDao.insertOneMyUndo(gardenPlanting2);
+        assertThat(LiveDataTestUtil.getValue(this.gardenPlantingDao.getAllMyUndoList()).size(), Matchers.equalTo(2));
     }
 
     @Test
@@ -84,29 +87,29 @@ public class GardenPlantingDaoTest {
 
     @Test
     public void testDeleteGardenPlanting() throws InterruptedException {
-        GardenPlanting gardenPlanting2 = new GardenPlanting(testPlants.get(1).getPlantId(), testCalendar, testCalendar);
-        gardenPlanting2.setGardenPlantingId(2);
-        this.gardenPlantingDao.insertGardenPlanting(gardenPlanting2);
-        assertThat(LiveDataTestUtil.getValue(gardenPlantingDao.getGardenPlantings()).size(), Matchers.equalTo(2));
-        this.gardenPlantingDao.deleteGardenPlanting(gardenPlanting2);
-        assertThat(LiveDataTestUtil.getValue(gardenPlantingDao.getGardenPlantings()).size(), Matchers.equalTo(1));
+        MyUndoListBean gardenPlanting2 = new MyUndoListBean(testPlants.get(1).getUndoId(), testCalendar, testCalendar);
+        gardenPlanting2.setMyUndoListId(2);
+        this.gardenPlantingDao.insertOneMyUndo(gardenPlanting2);
+        assertThat(LiveDataTestUtil.getValue(gardenPlantingDao.getAllMyUndoList()).size(), Matchers.equalTo(2));
+        this.gardenPlantingDao.deleteOneMyUndo(gardenPlanting2);
+        assertThat(LiveDataTestUtil.getValue(gardenPlantingDao.getAllMyUndoList()).size(), Matchers.equalTo(1));
     }
 
 
     @Test
     public void testGetGardenPlantingForPlant_notFound() throws InterruptedException {
-        assertNull(LiveDataTestUtil.getValue(gardenPlantingDao.getGardenPlantingForPlant(testPlants.get(2).getPlantId())));
+        assertNull(LiveDataTestUtil.getValue(gardenPlantingDao.getUndoListByUndoId(testPlants.get(2).getUndoId())));
     }
 
     @Test
     public void testGetPlantAndGardenPlantings() throws InterruptedException {
-        List<PlantAndGardenPlantings> plantAndGardenPlantings = LiveDataTestUtil.getValue(gardenPlantingDao.getPlantAndGardenPlantings());
+        List<CommonUndoBean> plantAndGardenPlantings = LiveDataTestUtil.getValue(gardenPlantingDao.getCommonUndoBean());
         assertThat(plantAndGardenPlantings.size(), Matchers.equalTo(3));
 
         /**
          * Only the [testPlant] has been planted, and thus has an associated [GardenPlanting]
          */
-        assertThat(plantAndGardenPlantings.get(0).getPlant(), Matchers.equalTo(testPlant));
+        assertThat(plantAndGardenPlantings.get(0).getUndoBean(), Matchers.equalTo(testPlant));
         assertThat(plantAndGardenPlantings.get(0).getGardenPlantings().size(), Matchers.equalTo(1));
         assertThat(plantAndGardenPlantings.get(0).getGardenPlantings().get(0), Matchers.equalTo(testGardenPlanting));
 

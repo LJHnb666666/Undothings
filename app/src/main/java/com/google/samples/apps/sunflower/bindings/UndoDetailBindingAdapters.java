@@ -17,19 +17,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.samples.apps.sunflower.R;
+//https://blog.51cto.com/u_11761032/2173751
+public class UndoDetailBindingAdapters {
 
-/**
- * 植物介绍详情 的 Fragment 的 布局文件 BindingAdapter合集
- */
-public class PlantDetailBindingAdapters {
-
-    /**
-     * 显示图片用的
-     * 谁在使用此BindingAdapter =====
-     *  PlantDetailFragment---fragment_plant_detail.xml(   app:imageFromUrl="@{viewModel.plant.imageUrl}" )
-     *                        list_item_garden_planting.xml( app:imageFromUrl="@{viewModel.imageUrl}" )
-     *                        list_item_plant.xml( app:imageFromUrl="@{plant.imageUrl}" )
-     */
     @BindingAdapter("imageFromUrl")
     public static void bindImageFromUrl(ImageView view, String imageUrl) {
         if (!TextUtils.isEmpty(imageUrl)) {
@@ -40,11 +30,6 @@ public class PlantDetailBindingAdapters {
         }
     }
 
-    /**
-     *  xxxx用的
-     *  谁在使用此BindingAdapter =====
-     *   PlantDetailFragment---fragment_plant_detail.xml( app:isGone="@{safeUnbox(viewModel.isPlanted)}" )
-     */
     @BindingAdapter("isGone")
     public static void bindIsGone(FloatingActionButton view, boolean isGone) {
         if (isGone) {
@@ -54,11 +39,6 @@ public class PlantDetailBindingAdapters {
         }
     }
 
-    /**
-     *  xxxx用的
-     *  谁在使用此BindingAdapter =====
-     *   PlantDetailFragment---fragment_plant_detail.xml( app:renderHtml="@{viewModel.plant.description}" )
-     */
     @BindingAdapter("renderHtml")
     public static void bindReaderHtml(TextView view, String description) {
         if (description == null) {
@@ -69,11 +49,6 @@ public class PlantDetailBindingAdapters {
         }
     }
 
-    /**
-     *  xxxx用的
-     *  谁在使用此BindingAdapter =====
-     *   PlantDetailFragment---fragment_plant_detail.xml( app:wateringText="@{viewModel.plant.wateringInterval}" )
-     */
     @BindingAdapter("wateringText")
     public static void bindWateringText(TextView textView, int wateringInterval) {
         Resources res = textView.getContext().getResources();

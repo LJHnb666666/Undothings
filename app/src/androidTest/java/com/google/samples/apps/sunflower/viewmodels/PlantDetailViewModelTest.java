@@ -19,8 +19,8 @@ package com.google.samples.apps.sunflower.viewmodels;
 import android.content.Context;
 
 import com.google.samples.apps.sunflower.data.AppDatabase;
-import com.google.samples.apps.sunflower.data.GardenPlantingRepository;
-import com.google.samples.apps.sunflower.data.PlantRepository;
+import com.google.samples.apps.sunflower.repository.MyUndoListRepository;
+import com.google.samples.apps.sunflower.repository.UndoRepository;
 
 import org.junit.After;
 import org.junit.Before;
@@ -40,7 +40,7 @@ import static org.junit.Assert.assertFalse;
  */
 public class PlantDetailViewModelTest {
     private AppDatabase appDatabase;
-    private PlantDetailViewModel viewModel;
+    private UndoDetailViewModel viewModel;
 
     @Rule
     public InstantTaskExecutorRule instantTaskExecutorRule = new InstantTaskExecutorRule();
@@ -50,10 +50,10 @@ public class PlantDetailViewModelTest {
         Context context = InstrumentationRegistry.getInstrumentation().getContext();
         appDatabase = Room.inMemoryDatabaseBuilder(context, AppDatabase.class).build();
 
-        PlantRepository plantRepo = PlantRepository.getInstance(appDatabase.getPlantDao());
-        GardenPlantingRepository gardenPlantingRepo = GardenPlantingRepository.getInstance(
-                appDatabase.getGardenPlantingDao());
-        viewModel = new PlantDetailViewModel(plantRepo, gardenPlantingRepo, testPlant.getPlantId());
+        UndoRepository plantRepo = UndoRepository.getInstance(appDatabase.getUndoDao());
+        MyUndoListRepository gardenPlantingRepo = MyUndoListRepository.getInstance(
+                appDatabase.getMyUndoListDao());
+        viewModel = new UndoDetailViewModel(plantRepo, gardenPlantingRepo, testPlant.getUndoId());
     }
 
     @After

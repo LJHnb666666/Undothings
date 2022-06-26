@@ -16,6 +16,8 @@
 
 package com.google.samples.apps.sunflower.data;
 
+import com.google.samples.apps.sunflower.bean.CommonUndoBean;
+
 import org.junit.Test;
 
 /**
@@ -25,7 +27,7 @@ public class PlantAndGardenPlantingTest {
 
     @Test
     public void testDefaultValues() {
-        PlantAndGardenPlantings p = new PlantAndGardenPlantings();
+        CommonUndoBean p = new CommonUndoBean();
         assert p.getGardenPlantings().isEmpty();
     }
 }
