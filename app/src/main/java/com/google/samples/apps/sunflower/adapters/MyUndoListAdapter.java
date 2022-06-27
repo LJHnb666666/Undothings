@@ -1,7 +1,6 @@
 package com.google.samples.apps.sunflower.adapters;
 
 import android.annotation.SuppressLint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.samples.apps.sunflower.R;
-import com.google.samples.apps.sunflower.bean.CommonUndoBean;
+import com.google.samples.apps.sunflower.roombean.CommonUndoBean;
 import com.google.samples.apps.sunflower.databinding.ListItemMyUndoBinding;
 import com.google.samples.apps.sunflower.fragments.MyUndoFragmentDirections;
 import com.google.samples.apps.sunflower.viewmodels.CommonUndoItemViewModel;
@@ -40,14 +39,13 @@ public class MyUndoListAdapter extends ListAdapter<CommonUndoBean, MyUndoListAda
         holder.bind(createOnClickListener(commonUndoBean.getUndoBean().getUndoId()), commonUndoBean);
     }
 
-    private View.OnClickListener createOnClickListener(String undoId) {
-        // 跳转到详情 并且把植物 id 给详情
+    private View.OnClickListener createOnClickListener(int undoId) {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // 导航过去了 到 详情
                 Navigation.findNavController(v).navigate(
-                        MyUndoFragmentDirections.actionMyUndoFragmentToUndoDetailFragment(undoId)
+                        MyUndoFragmentDirections.actionMyUndoFragmentToUndoDetailFragment(undoId + "")
                 );
             }
         };
@@ -62,7 +60,6 @@ public class MyUndoListAdapter extends ListAdapter<CommonUndoBean, MyUndoListAda
         }
 
         void bind(View.OnClickListener listener, CommonUndoBean commonUndos) {
-            Log.v("ljh","bind: commonUndos :" + commonUndos);
             this.binding.setViewModel(new CommonUndoItemViewModel(commonUndos));
             this.binding.setClick(listener);
             this.binding.executePendingBindings();//当变量或可观察对象发生更改时，绑定会在下一帧之前更改。 不过有的时候需要立刻执行绑定.若要强制执行，可以使用 executePendingBindings() 方法。
@@ -74,7 +71,7 @@ public class MyUndoListAdapter extends ListAdapter<CommonUndoBean, MyUndoListAda
         @Override
         public boolean areItemsTheSame(@NonNull CommonUndoBean oldItem,
                                        @NonNull CommonUndoBean newItem) {
-            return oldItem.getUndoBean().getUndoId().equals(newItem.getUndoBean().getUndoId());
+            return oldItem.getUndoBean().getUndoId() == (newItem.getUndoBean().getUndoId());
         }
 
         @SuppressLint("DiffUtilEquals")

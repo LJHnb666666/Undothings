@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.samples.apps.sunflower.bean.UndoBean;
+import com.google.samples.apps.sunflower.roombean.UndoBean;
 import com.google.samples.apps.sunflower.databinding.ListItemAllUndoBinding;
 import com.google.samples.apps.sunflower.fragments.AllUndoListFragmentDirections;
 
@@ -35,10 +35,10 @@ public class AllUndoListAdapter extends ListAdapter<UndoBean, AllUndoListAdapter
         holder.bind(createOnClickListener(undoBean.getUndoId()), undoBean);
     }
 
-    private View.OnClickListener createOnClickListener(String undoId) {
+    private View.OnClickListener createOnClickListener(int undoId) {
         // 导航过去了 到 详情
         return v -> Navigation.findNavController(v).navigate(
-                AllUndoListFragmentDirections.actionUndoListFragmentToUndoDetailFragment(undoId)
+                AllUndoListFragmentDirections.actionUndoListFragmentToUndoDetailFragment(undoId + "")
         );
     }
 
@@ -61,7 +61,7 @@ public class AllUndoListAdapter extends ListAdapter<UndoBean, AllUndoListAdapter
 
         @Override
         public boolean areItemsTheSame(@NonNull UndoBean oldItem, @NonNull UndoBean newItem) {
-            return oldItem.getUndoId().equals(newItem.getUndoId());
+            return oldItem.getUndoId() == newItem.getUndoId();
         }
 
         @SuppressLint("DiffUtilEquals")

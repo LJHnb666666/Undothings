@@ -18,7 +18,7 @@ package com.google.samples.apps.sunflower.viewmodels;
 
 import android.content.Context;
 
-import com.google.samples.apps.sunflower.data.AppDatabase;
+import com.google.samples.apps.sunflower.roomconfig.AppDatabase;
 import com.google.samples.apps.sunflower.repository.MyUndoListRepository;
 import com.google.samples.apps.sunflower.repository.UndoRepository;
 

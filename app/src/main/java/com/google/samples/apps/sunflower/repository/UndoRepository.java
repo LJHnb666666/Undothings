@@ -2,20 +2,27 @@ package com.google.samples.apps.sunflower.repository;
 
 import androidx.lifecycle.LiveData;
 
-import com.google.samples.apps.sunflower.bean.UndoBean;
+//import com.google.samples.apps.sunflower.net.service.UserUndoService;
+import com.google.samples.apps.sunflower.net.interceptor.RxJavaInterceptor;
+import com.google.samples.apps.sunflower.net.service.UserUndoService;
+import com.google.samples.apps.sunflower.net.serviceconfig.ApiClient;
 import com.google.samples.apps.sunflower.dao.UndoDao;
+import com.google.samples.apps.sunflower.roombean.UndoBean;
+import com.google.samples.apps.sunflower.utilites.AppExecutors;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class UndoRepository {
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
-    // 单例模式用的
+
+public class UndoRepository {
     private static UndoRepository instance;
 
-    // 仓库才能对 dao进行增删改查
     private UndoDao undoDao;
+    private LiveData<ArrayList<UndoBean>> undoBeans;
 
-    // 构造函数 必须接收一个dao， 仓库才能对 dao进行增删改查
     private UndoRepository(UndoDao undoDao) {
         this.undoDao = undoDao;
     }
@@ -35,12 +42,25 @@ public class UndoRepository {
     public LiveData<List<UndoBean>> getAllUndos() {
         return this.undoDao.getAllUndos();
     }
+    public void getAllUserUndosFromNet(int uid,RxJavaInterceptor<ArrayList<com.google.samples.apps.sunflower.net.bean.UndoBean>> observer){
 
-    public LiveData<UndoBean> getUndoById(String undoId) {
+        ApiClient.getInstance().createRetrofit(UserUndoService.class)
+                .getAllUndosByUid(uid)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(observer);
+    }
+    public LiveData<UndoBean> getUndoById(int undoId) {
         return this.undoDao.getUndoById(undoId);
     }
 
-    public LiveData<List<UndoBean>> getUndosByGrowzonenumber(int growZoneNumber) {
-        return this.undoDao.getUndosByGrowzonenumber(growZoneNumber);
+    public void insertAllUndosToLocal(List<UndoBean> undoBeans){
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                undoDao.insertAll(undoBeans);
+            }
+        });
+
     }
 }

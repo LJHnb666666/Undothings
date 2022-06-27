@@ -38,6 +38,14 @@ public class UndoDetailBindingAdapters {
             view.show();
         }
     }
+    @BindingAdapter("isAdd")
+    public static void bindIsAdd(FloatingActionButton view, boolean isAdd) {
+        if(!isAdd){
+            view.setImageResource(R.drawable.ic_plus);
+        }else {
+            view.setImageResource(R.drawable.unplus);
+        }
+    }
 
     @BindingAdapter("renderHtml")
     public static void bindReaderHtml(TextView view, String description) {

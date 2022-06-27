@@ -19,8 +19,8 @@ package com.google.samples.apps.sunflower.utilities;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.google.samples.apps.sunflower.bean.MyUndoListBean;
-import com.google.samples.apps.sunflower.bean.UndoBean;
+import com.google.samples.apps.sunflower.roombean.MyUndoListBean;
+import com.google.samples.apps.sunflower.roombean.UndoBean;
 
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;

@@ -7,7 +7,7 @@ apply plugin: 'com.android.application'
 // apply plugin: "androidx.navigation.safeargs.kotlin"
 // 插件传递参数 https://blog.csdn.net/nanquan11/article/details/109807501
 apply plugin: "androidx.navigation.safeargs"
-
+apply plugin: 'kotlin-android'
 android {
     compileSdkVersion rootProject.compileSdkVersion
 
@@ -24,7 +24,7 @@ android {
         versionCode 1
         versionName "0.1.6"
         vectorDrawables.useSupportLibrary true
-
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -45,6 +45,7 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.android.support:multidex:1.0.3'
 
     annotationProcessor "androidx.room:room-compiler:$rootProject.roomVersion"
     annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
@@ -75,8 +76,18 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$rootProject.testExtJunit"
     testImplementation "junit:junit:$rootProject.junitVersion"
 
-    // 2.4 最新的好像
-    // TODO 同学们，这里就是导入WorkManager的依赖支持，因为WorkManager是以扩展库的方式
     def work_version = "2.3.4"
     implementation "androidx.work:work-runtime:$work_version"
+
+    //导入retrofit
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.gsonVersion"//ConverterFactory的Gson依赖包
+    implementation "com.squareup.retrofit2:converter-scalars:$rootProject.scalarsVersion"//ConverterFactory的String依赖包
+    implementation("com.squareup.okhttp3:okhttp:$rootProject.okhttpVersion")
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.adapterrxjava2Version"
+
+    //导入rxjava
+    compile "io.reactivex.rxjava2:rxandroid:$rootProject.rxandroidVersion"
+    compile "io.reactivex.rxjava2:rxjava:$rootProject.rxjavaVersion"
+
 }

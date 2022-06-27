@@ -2,10 +2,9 @@ package com.google.samples.apps.sunflower.repository;
 
 import androidx.lifecycle.LiveData;
 
-import com.google.samples.apps.sunflower.bean.CommonUndoBean;
-import com.google.samples.apps.sunflower.bean.MyUndoListBean;
+import com.google.samples.apps.sunflower.roombean.CommonUndoBean;
+import com.google.samples.apps.sunflower.roombean.MyUndoListBean;
 import com.google.samples.apps.sunflower.dao.MyUndoListDao;
-import com.google.samples.apps.sunflower.utilites.AppExecutors;
 
 import java.util.List;
 
@@ -35,18 +34,18 @@ public class MyUndoListRepository {
     }
 
 
-    public void createMyUndo(String plantId) {
-        AppExecutors.getInstance().diskIO().execute(() ->
-                // 植物 insert 插入进去
-                myUndoListDao.insertOneMyUndo(new MyUndoListBean(plantId, null, null)));
+    public void createMyUndo(int undoId) {
+//        AppExecutors.getInstance().diskIO().execute(() ->);
+        myUndoListDao.insertOneMyUndo(new MyUndoListBean(undoId, null, null));
+
     }
 
-    public void removeOneMyUndo(MyUndoListBean gardenPlanting) {
-        AppExecutors.getInstance().diskIO().execute(() ->
-                myUndoListDao.deleteOneMyUndo(gardenPlanting));
+    public void removeOneMyUndo(int undoId) {
+//        AppExecutors.getInstance().diskIO().execute(() ->);
+        myUndoListDao.deleteOneMyUndo(myUndoListDao.getUndoListByIdNoLivedata(undoId));
     }
 
-    public LiveData<MyUndoListBean> getUndoListByUndoId(String undoId) {
+    public LiveData<MyUndoListBean> getUndoListByUndoId(int undoId) {
         return myUndoListDao.getUndoListByUndoId(undoId);
     }
 

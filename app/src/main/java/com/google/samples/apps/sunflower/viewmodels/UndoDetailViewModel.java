@@ -4,20 +4,22 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import com.google.samples.apps.sunflower.bean.MyUndoListBean;
+import com.google.samples.apps.sunflower.roombean.MyUndoListBean;
 import com.google.samples.apps.sunflower.repository.MyUndoListRepository;
-import com.google.samples.apps.sunflower.bean.UndoBean;
+import com.google.samples.apps.sunflower.roombean.UndoBean;
 import com.google.samples.apps.sunflower.repository.UndoRepository;
 import com.google.samples.apps.sunflower.utilites.AppExecutors;
 
 public class UndoDetailViewModel extends ViewModel {
-    private String undoId;
+    private int undoId;
 
     public LiveData<UndoBean> undo;
+    public String imgUrl = "https://picsum.photos/200/300";
 
-    public UndoDetailViewModel(UndoRepository undoRepository, MyUndoListRepository myUndoListRepository, String undoId) {
+    public UndoDetailViewModel(UndoRepository undoRepository, MyUndoListRepository myUndoListRepository, int undoId) {
         super();
         this.myUndoListRepository = myUndoListRepository;
+        this.undoRepository = undoRepository;
         this.undoId = undoId;
 
         LiveData<MyUndoListBean> undoListByUndoId = myUndoListRepository.getUndoListByUndoId(undoId);
@@ -27,12 +29,22 @@ public class UndoDetailViewModel extends ViewModel {
 
 
     private MyUndoListRepository myUndoListRepository;
+    UndoRepository undoRepository;
 
     public void addMyUndo() {
         AppExecutors.getInstance().diskIO().execute(new Runnable() {
             @Override
             public void run() {
                 myUndoListRepository.createMyUndo(undoId);
+            }
+        });
+    }
+
+    public void deleteMyUndo(){
+        AppExecutors.getInstance().diskIO().execute(new Runnable() {
+            @Override
+            public void run() {
+                myUndoListRepository.removeOneMyUndo(undoId);
             }
         });
     }

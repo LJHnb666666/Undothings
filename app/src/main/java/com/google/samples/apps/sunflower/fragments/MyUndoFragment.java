@@ -12,7 +12,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.samples.apps.sunflower.adapters.MyUndoListAdapter;
-import com.google.samples.apps.sunflower.bean.CommonUndoBean;
+import com.google.samples.apps.sunflower.roombean.CommonUndoBean;
 import com.google.samples.apps.sunflower.databinding.FragmentMyUndoBinding;
 import com.google.samples.apps.sunflower.utilites.InjectorUtils;
 import com.google.samples.apps.sunflower.viewmodels.MyUndoListViewModel;
@@ -51,7 +51,6 @@ public class MyUndoFragment extends Fragment {
 
         viewModel.myUndoList.observe(getViewLifecycleOwner(), gardenPlantings ->
                 binding.setHasPlantings(gardenPlantings != null && !gardenPlantings.isEmpty()));
-                //Log.v("ljh","GardenFragment里面，gardenPlantings" + gardenPlantings));
 
         viewModel.commonUndoList.observe(getViewLifecycleOwner(), new Observer<List<CommonUndoBean>>() {
             @Override

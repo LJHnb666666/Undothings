@@ -13,7 +13,6 @@
         android:label="@string/my_undo_title"
         tools:layout="@layout/fragment_my_undo">
 
-        <!-- 这个需要指定 各个Fragment 路线指定跳转动作 才会有，后面会讲 -->
         <action
             android:id="@+id/action_my_undo_fragment_to_undo_detail_fragment"
             app:destination="@id/undo_detail_fragment"
@@ -24,8 +23,6 @@
 
     </fragment>
 
-    <!-- 【Fragment2 植物目录】植物目录的Fragment -->
-    <!-- 【Fragment2 植物目录】 -->
     <fragment
         android:id="@+id/undo_list_fragment"
         android:name="com.google.samples.apps.sunflower.fragments.AllUndoListFragment"
@@ -39,10 +36,32 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_undo_list_fragment_to_add_undo_fragment"
+            app:destination="@id/add_undo_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
 
     </fragment>
 
-    <!-- 【Fragment3 植物介绍详情】 -->
+    <fragment
+        android:id="@+id/add_undo_fragment"
+        android:name="com.google.samples.apps.sunflower.fragments.AddUndoFragment"
+        android:label="addundos"
+        tools:layout="@layout/fragment_add_undo">
+
+
+        <action
+            android:id="@+id/action_add_undo_fragment_to_undo_list_fragment"
+            app:destination="@id/undo_list_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
     <fragment
         android:id="@+id/undo_detail_fragment"
         android:name="com.google.samples.apps.sunflower.fragments.UndoDetailFragment"
@@ -50,7 +69,7 @@
         tools:layout="@layout/fragment_undo_detail">
         <argument
             android:name="plantId"
-            app:argType="string" />
+            app:argType="java.lang.String" />
 
     </fragment>
 

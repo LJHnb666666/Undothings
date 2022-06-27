@@ -14,10 +14,11 @@
   ~ limitations under the License.
   -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ExtraTranslation">
+
 
     <!-- Resources that do not require translation -->
-    <string name="app_name" translatable="false">Undothings</string>
+    <string name="app_name" translatable="false">Undos</string>
     <string name="navigation_drawer_header_title" translatable="false">Undothings</string>
 
     <!-- Translatable resources -->

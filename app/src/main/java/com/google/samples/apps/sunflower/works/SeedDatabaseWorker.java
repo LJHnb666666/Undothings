@@ -10,8 +10,8 @@ import androidx.work.WorkerParameters;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
-import com.google.samples.apps.sunflower.data.AppDatabase;
-import com.google.samples.apps.sunflower.bean.UndoBean;
+import com.google.samples.apps.sunflower.roomconfig.AppDatabase;
+import com.google.samples.apps.sunflower.roombean.UndoBean;
 import com.google.samples.apps.sunflower.utilites.Constants;
 
 import java.io.IOException;

@@ -29,11 +29,12 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.ListAdapter;
 
 import com.google.samples.apps.sunflower.R;
 import com.google.samples.apps.sunflower.adapters.AllUndoListAdapter;
-import com.google.samples.apps.sunflower.bean.UndoBean;
+import com.google.samples.apps.sunflower.roombean.UndoBean;
 import com.google.samples.apps.sunflower.databinding.FragmentUndoListBinding;
 import com.google.samples.apps.sunflower.utilites.InjectorUtils;
 import com.google.samples.apps.sunflower.viewmodels.AllUndoListViewModel;
@@ -67,35 +68,36 @@ public class AllUndoListFragment extends Fragment {
         // 植物目录：点击右上角 会重新随机查询展示
         setHasOptionsMenu(true);
 
+//
         return binding.getRoot();
     }
 
-    // 植物目录：点击右上角 会重新随机查询展示
+    @Override
+    public void onResume() {
+        super.onResume();
+        viewModel.getAllUserUndosFromNet();
+    }
+
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.menu_all_undo_list, menu); // 加载菜单布局
     }
 
-    // 点击事件
-    // 植物目录：点击右上角 会重新随机查询展示[当用户点击的时候，就会触发监听]
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.filter_zone:
-                updateData(); // 我写了查询吗，是不是没有，我只关心  修改数据
+            case R.id.add_undo_menu:
+                //然后跳转
+                NavHostFragment.findNavController(this).navigate(
+                        AllUndoListFragmentDirections.actionUndoListFragmentToAddUndoFragment()
+                );
                 return true;
 
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void updateData() {
-        if (viewModel.isFiltered()) { // 是否过滤 标记
-            viewModel.cleanGrowZoneNumber(); // 清除此标记 改为默认状态 -1  （正常查询）
-        } else {
-            viewModel.setGrowZoneNumber(9); // 设置此标记 为9  （查询为 9的数据）
-        }
-    }
 
 
     private void subscribeUi(ListAdapter adapter) {
